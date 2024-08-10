@@ -1,0 +1,54 @@
+{
+    "title": {
+        "prefix": "mycopyright",
+        "body": [
+            "// Copyright (c) ${CURRENT_YEAR} Stefan Olivier",
+            "// <https://stefanolivier.com>"
+        ],
+        "description": "copyright and website"
+    },
+
+    "dividersingle": {
+        "prefix": "div1",
+        "body": [
+            "// -----------------------------------------------------------------------------"
+        ],
+        "description": "single line divider"
+    },
+
+    "sectionheader": {
+        "prefix": "head1",
+        "body": [
+            "// -----------------------------------------------------------------------------",
+            "//",
+            "// -- @${0:SECTION} ${1:Unknown Section} --",
+            "//",
+            "// -----------------------------------------------------------------------------"
+        ],
+        "description": "section header"
+    },
+
+    "endcomment": {
+        "prefix": "end1",
+        "body": [
+            "// @END OF ${0:TODO}"
+        ],
+        "description": "end section comment"
+    },
+
+    "todocommentsimple": {
+        "prefix": "todo",
+        "body": [
+            "// TODO: ${0}"
+        ],
+        "description": "todo comment unparameterized"
+    },
+
+    "todocommentparam": {
+        "prefix": "todop",
+        "body": [
+            "// TODO(${0:all}): ${1}"
+        ],
+        "description": "todo comment with parameters"
+    }
+}

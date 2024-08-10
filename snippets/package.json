@@ -1,0 +1,21 @@
+{
+    "name": "user_snippets",
+    "engines": {
+        "vscode": "^1.11.0"
+    },
+    "contributes": {
+        "snippets": [
+            {
+                "language": [
+                    "c",
+                    "cpp",
+                    "csharp",
+                    "cs",
+                    "javascript",
+                    "rust"
+                ],
+                "path": "./c-like.json"
+            }
+        ]
+    }
+}

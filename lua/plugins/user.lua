@@ -22,7 +22,7 @@ return {
     "goolord/alpha-nvim",
     opts = function(_, opts)
       opts.section.header.val = {
-        [[                                                    ]],
+          [[                                                    ]],
 	      [[ ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ]],
 	      [[ ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ]],
 	      [[ ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ]],
@@ -46,6 +46,9 @@ return {
       -- add more custom luasnip configuration such as filetype extend or custom snippets
       local luasnip = require "luasnip"
       luasnip.filetype_extend("javascript", { "javascriptreact" })
+      require("luasnip.loaders.from_vscode").lazy_load({
+          paths = { vim.fn.stdpath("config") .. "/snippets" },
+      })
     end,
   },
 
@@ -97,12 +100,12 @@ return {
     end
   },
 
-  {
-    'mg979/vim-visual-multi',
-    event = "VeryLazy",
-    config = function()
-    end
-  },
+  -- {
+  --   'mg979/vim-visual-multi',
+  --   event = "VeryLazy",
+  --   config = function()
+  --   end
+  -- },
 
   {
     "LhKipp/nvim-nu",
@@ -116,7 +119,42 @@ return {
     "xiyaowong/transparent.nvim",
     event = "VeryLazy",
     config = function()
-      require("transparent").setup({})
+      require("transparent").setup({
+        exclude_groups = {
+          'CursorLine', 'CursorLineNr'
+        }
+      })
     end
+  },
+  { "johmsalas/text-case.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("textcase").setup({})
+    end
+  },
+
+  {
+    "brenton-leighton/multiple-cursors.nvim",
+    version = "*",  -- Use the latest tagged version
+    opts = {},  -- This causes the plugin setup function to be called
+    keys = {
+      -- {"<Leader>l", "<Cmd>MultipleCursorsLock<CR>", mode = {"n", "x"}, desc = "Lock virtual cursors"},
+
+      {"<C-j>", "<Cmd>MultipleCursorsAddDown<CR>", mode = {"n", "x"}, desc = "Add cursor and move down"},
+      {"<C-k>", "<Cmd>MultipleCursorsAddUp<CR>", mode = {"n", "x"}, desc = "Add cursor and move up"},
+      {"<C-Up>", "<Cmd>MultipleCursorsAddUp<CR>", mode = {"n", "i", "x"}, desc = "Add cursor and move up"},
+      {"<C-Down>", "<Cmd>MultipleCursorsAddDown<CR>", mode = {"n", "i", "x"}, desc = "Add cursor and move down"},
+
+      {"<C-LeftMouse>", "<Cmd>MultipleCursorsMouseAddDelete<CR>", mode = {"n", "i"}, desc = "Add or remove cursor"},
+
+      {"<Leader>aa", "<Cmd>MultipleCursorsAddMatches<CR>", mode = {"n", "x"}, desc = "Add cursors to cword"},
+      {"<Leader>AA", "<Cmd>MultipleCursorsAddMatchesV<CR>", mode = {"n", "x"}, desc = "Add cursors to cword in previous area"},
+
+      {"<Leader>a", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", mode = {"n", "x"}, desc = "Add cursor and jump to next cword"},
+      {"<Leader>A", "<Cmd>MultipleCursorsJumpNextMatch<CR>", mode = {"n", "x"}, desc = "Jump to next cword"},
+
+      {"<C-n>", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", mode = {"n", "x"}, desc = "Add cursor and jump to next cword"},
+      {"<C-S-n>", "<Cmd>MultipleCursorsJumpNextMatch<CR>", mode = {"n", "x"}, desc = "Jump to next cword"},
+    },
   },
 }
