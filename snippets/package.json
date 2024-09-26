@@ -12,7 +12,9 @@
                     "csharp",
                     "cs",
                     "javascript",
-                    "rust"
+                    "typescript",
+                    "rust",
+                    "zig"
                 ],
                 "path": "./c-like.json"
             }

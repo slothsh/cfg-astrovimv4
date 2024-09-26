@@ -16,6 +16,9 @@ return {
         n = {
           -- second key is the lefthand side of the map
           -- mappings seen under group name "Buffer"
+          ["<Leader>fR"] = { "<cmd>Telescope lsp_references<cr>", desc = "Find references" },
+          ["<Leader>j]"] = { "<cmd>cnext<cr>", desc = "Jump to next location" },
+          ["<Leader>j["] = { "<cmd>cprev<cr>", desc = "Jump to previous location" },
           ["<Leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
           ["<Leader>bD"] = {
             function()
@@ -48,6 +51,7 @@ return {
         },
 
         v = {
+          ['p'] = { '"_dP', desc = "void delete and paste" },
           ['<A-j>'] = { ":move '>+1<CR>gv", desc = "Move current line down" },
           ['<A-k>'] = { ":move '<-2<CR>gv", desc = "Move current line up" },
           ['<C-A-j>'] = { ":t '>+0<CR>gv", desc = "Copy current line down" },

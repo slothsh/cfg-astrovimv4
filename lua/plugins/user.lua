@@ -45,6 +45,7 @@ return {
       require "astronvim.plugins.configs.luasnip"(plugin, opts) -- include the default astronvim config that calls the setup call
       -- add more custom luasnip configuration such as filetype extend or custom snippets
       local luasnip = require "luasnip"
+      luasnip.filetype_extend("php", { "html" })
       luasnip.filetype_extend("javascript", { "javascriptreact" })
       require("luasnip.loaders.from_vscode").lazy_load({
           paths = { vim.fn.stdpath("config") .. "/snippets" },
@@ -135,6 +136,7 @@ return {
 
   {
     "brenton-leighton/multiple-cursors.nvim",
+    event = "BufRead",
     version = "*",  -- Use the latest tagged version
     opts = {},  -- This causes the plugin setup function to be called
     keys = {
@@ -153,8 +155,21 @@ return {
       {"<Leader>a", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", mode = {"n", "x"}, desc = "Add cursor and jump to next cword"},
       {"<Leader>A", "<Cmd>MultipleCursorsJumpNextMatch<CR>", mode = {"n", "x"}, desc = "Jump to next cword"},
 
-      {"<C-n>", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", mode = {"n", "x"}, desc = "Add cursor and jump to next cword"},
-      {"<C-S-n>", "<Cmd>MultipleCursorsJumpNextMatch<CR>", mode = {"n", "x"}, desc = "Jump to next cword"},
+      {"gl", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", mode = {"n", "x"}, desc = "Add cursor and jump to next cword"},
+      {"gL", "<Cmd>MultipleCursorsJumpNextMatch<CR>", mode = {"n", "x"}, desc = "Jump to next cword"},
+      -- {"<C-n>", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", mode = {"n", "x"}, desc = "Add cursor and jump to next cword"},
+      -- {"<C-S-n>", "<Cmd>MultipleCursorsJumpNextMatch<CR>", mode = {"n", "x"}, desc = "Jump to next cword"},
     },
   },
+
+    {
+        "gbprod/phpactor.nvim",
+        config = function()
+            require('lspconfig').phpactor.setup {
+                root_dir = function(fname)
+                    return require('lspconfig.util').path.dirname(fname)
+                end
+            }
+        end
+    }
 }
