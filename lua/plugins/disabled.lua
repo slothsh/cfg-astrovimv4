@@ -1,3 +1,3 @@
 return {
-  { "NMAC427/guess-indent.nvim", enabled = false },
+    { "NMAC427/guess-indent.nvim", enabled = false },
 }
