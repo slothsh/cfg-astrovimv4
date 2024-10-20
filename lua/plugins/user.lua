@@ -171,5 +171,19 @@ return {
                 end
             }
         end
+    },
+
+    {
+        "fedepujol/move.nvim",
+        event = "VeryLazy",
+        opts = {},
+        config = function()
+            vim.api.nvim_create_user_command("MoveLineMotion", function(args)
+                local sign = args.args/math.abs(args.args)
+                local n = (args.line2 - args.line1)*sign + args.args
+                vim.cmd{ cmd = "MoveLine", args = { n } }
+            end, { nargs = 1, range = true, desc = "move.nvim MoveLine wrapper with motions" })
+            require("move").setup({})
+        end
     }
 }
