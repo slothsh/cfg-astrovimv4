@@ -168,7 +168,12 @@ return {
             require('lspconfig').phpactor.setup {
                 root_dir = function(fname)
                     return require('lspconfig.util').path.dirname(fname)
-                end
+                end,
+
+                init_options = {
+                    ["language_server_phpstan.enabled"] = false,
+                    ["language_server_psalm.enabled"] = false,
+                }
             }
         end
     },
