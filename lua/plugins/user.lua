@@ -47,6 +47,7 @@ return {
             local luasnip = require "luasnip"
             luasnip.filetype_extend("php", { "html" })
             luasnip.filetype_extend("javascript", { "javascriptreact" })
+            luasnip.filetype_extend("typescript", { "typescriptreact" })
             require("luasnip.loaders.from_vscode").lazy_load({
                 paths = { vim.fn.stdpath("config") .. "/snippets" },
             })
@@ -166,13 +167,19 @@ return {
         "gbprod/phpactor.nvim",
         config = function()
             require('lspconfig').phpactor.setup {
-                root_dir = function(fname)
-                    return require('lspconfig.util').path.dirname(fname)
-                end,
+                cmd = { "phpactor", "language-server" },
+                filetypes = { "php" },
+                root_dir = require('lspconfig/util').root_pattern("composer.json", ".git"),
 
                 init_options = {
-                    ["language_server_phpstan.enabled"] = false,
                     ["language_server_psalm.enabled"] = false,
+                    ["language_server_worse_reflection.inlay_hints.enable"] = true,
+                    ["language_server_worse_reflection.inlay_hints.params"] = true,
+                    ["language_server_worse_reflection.inlay_hints.types"] = true,
+                    ["language_server_configuration.auto_config"] = false,
+                    ["code_transform.import_globals"] = true,
+                    ["language_server_phpstan.enabled"] = true,
+                    ["language_server_phpstan.bin"] = "phpstan",
                 }
             }
         end
