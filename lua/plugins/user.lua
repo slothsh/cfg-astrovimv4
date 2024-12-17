@@ -197,5 +197,13 @@ return {
             end, { nargs = 1, range = true, desc = "move.nvim MoveLine wrapper with motions" })
             require("move").setup({})
         end
+    },
+    {
+
+        "github/copilot.vim",
+        event = "VeryLazy",
+        opts = {},
+        config = function()
+        end
     }
 }
