@@ -21,16 +21,43 @@ return {
     {
         "goolord/alpha-nvim",
         opts = function(_, opts)
-            opts.section.header.val = {
-                [[                                                    ]],
-	            [[ ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ]],
-	            [[ ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ]],
-	            [[ ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ]],
-	            [[ ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ]],
-	            [[ ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ]],
-	            [[ ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ]],
-	            [[                                                    ]],
+            local commit_data = string.gsub(vim.fn.system([[echo "SELECT first_name, last_name, message FROM commits ORDER BY RANDOM() LIMIT 1" | sqlite3 -json ~/.config/nvim/commits.db]]), '\n', '')
+            local t = {}
+            for kf, vf, kl, vl, km, vm in string.gmatch(commit_data, [["(.+)":"(.+)","(.+)":"(.+)","(.+)":"(.+)"]]) do
+                t[kf] = vf
+                t[kl] = vl
+                t[km] = vm
+            end
+            local _commit_message = string.gsub(t.message, '\\"', '"')
+            local _commit_author = '- ' .. t.first_name .. ' ' .. t.last_name
+            local longest = math.max(#_commit_message, #_commit_author)
+            local commit_message = string.rep(' ', (longest / 2) - (#_commit_message / 2)) .. _commit_message
+            local commit_author = string.rep(' ', (longest / 2) - (#_commit_author / 2)) .. _commit_author
+
+            local header = {}
+            local date = string.format('| %s |', os.date("%a, %d %B %Y"))
+            local border = '+' .. string.rep('-', #date - 2) .. '+'
+            local art_owl = {
+                [[      /\_/\       ]],
+                [[     ((@v@))      ]],
+                [[     ():::()      ]],
+                [[    -~VV-VV~-     ]],
+                border,
+                date,
+                border,
             }
+            for _, o in ipairs(art_owl) do
+                local padding = math.ceil((longest - #o) / 2)
+                table.insert(header, string.rep(' ', padding) .. o .. string.rep(' ', padding))
+            end
+
+            table.insert(header, '')
+            table.insert(header, commit_message)
+            table.insert(header, '')
+            table.insert(header, commit_author)
+
+            opts.section.header.val = header
+
             return opts
         end,
     },
@@ -119,7 +146,6 @@ return {
 
     {
         "xiyaowong/transparent.nvim",
-        event = "VeryLazy",
         config = function()
             require("transparent").setup({
                 exclude_groups = {
@@ -196,6 +222,14 @@ return {
                 vim.cmd{ cmd = "MoveLine", args = { n } }
             end, { nargs = 1, range = true, desc = "move.nvim MoveLine wrapper with motions" })
             require("move").setup({})
+        end
+    },
+    {
+
+        "github/copilot.vim",
+        event = "VeryLazy",
+        opts = {},
+        config = function()
         end
     }
 }

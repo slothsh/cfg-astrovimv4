@@ -37,6 +37,8 @@ return {
                     ['<A-h>'] = { 'gub', desc = "Lowercase word left" },
                     ['<C-A-l>'] = { 'gUee', desc = "Uppercase word right" },
                     ['<C-A-h>'] = { 'gUb', desc = "Uppercase word left" },
+                    ["<Leader>yf"] = { ":CopyFileName<CR>", desc = "Copy current buffer's file name" },
+                    ["<Leader>yfh"] = { ":CopyFileNameHash<CR>", desc = "Copy current buffer's file name and git hash" },
                 },
 
                 v = {
@@ -70,6 +72,13 @@ return {
                         end,
                         desc = "Declaration of current symbol",
                         cond = "textDocument/declaration",
+                    },
+
+                    ['<leader>lfl'] = {
+                        function()
+                            vim.cmd([[EslintFixAll]])
+                        end,
+                        desc = "Lint Lavender",
                     },
                 },
             },
