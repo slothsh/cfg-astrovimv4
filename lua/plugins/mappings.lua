@@ -16,7 +16,8 @@ return {
                     ["<Leader>j]"] = { "<cmd>cnext<cr>", desc = "Jump to next location" },
                     ["<Leader>j["] = { "<cmd>cprev<cr>", desc = "Jump to previous location" },
                     ["<Leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
-
+                    ["<leader>E"] = { "<cmd>Yazi<cr>", desc = "Open yazi at the current file" },
+                    ["<Leader>fw"] = { "<cmd>lua require('plugins.multigrep').multigrep_glob()<CR>", desc = "Find words in filtered files" },
                     ["<Leader>bD"] = {
                         function()
                             require("astroui.status").heirline.buffer_picker(function(bufnr)
@@ -39,6 +40,7 @@ return {
                     ['<C-A-h>'] = { 'gUb', desc = "Uppercase word left" },
                     ["<Leader>yf"] = { ":CopyFileName<CR>", desc = "Copy current buffer's file name" },
                     ["<Leader>yfh"] = { ":CopyFileNameHash<CR>", desc = "Copy current buffer's file name and git hash" },
+                    ["<Leader>uc"] = { ":ToggleLightDarkMode<CR>", desc = "Toggle light or dark mode" },
                 },
 
                 v = {

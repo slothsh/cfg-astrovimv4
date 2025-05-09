@@ -231,5 +231,46 @@ return {
         opts = {},
         config = function()
         end
+    },
+    {
+        'slint-ui/vim-slint',
+        event = "VeryLazy",
+        opts = {},
+        config = function()
+        end
+    },
+    {
+        'nvim-telescope/telescope.nvim',
+        tag = '0.1.8',
+        dependencies = { 'nvim-lua/plenary.nvim' },
+        config = function()
+            require("telescope").setup {
+                defaults = {
+                    layout_strategy = "vertical",
+                    layout_config = {
+                        prompt_position = 'bottom',
+                        height = 0.9,
+                        width = 0.9,
+                    }
+                }
+            }
+        end,
+    },
+
+    {
+        "mikavilpas/yazi.nvim",
+        event = "VeryLazy",
+        dependencies = {
+            "folke/snacks.nvim"
+        },
+        opts = {
+            open_for_directories = false,
+            keymaps = {
+                show_help = "<f1>",
+            },
+        },
+        init = function()
+            vim.g.loaded_netrwPlugin = 1
+        end,
     }
 }
